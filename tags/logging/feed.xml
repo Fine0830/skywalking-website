@@ -1,0 +1,402 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apache SkyWalking – Logging</title>
+    <link>/tags/logging/</link>
+    <description>Recent content in Logging on Apache SkyWalking</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 20 Oct 2024 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/logging/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Blog: Use of SkyWalking Go Toolkit Log and Metrics</title>
+      <link>/blog/2024-10-20-skywalking-go-toolkit-metrics-log/</link>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>/blog/2024-10-20-skywalking-go-toolkit-metrics-log/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;p&gt;Apache SkyWalking Go is an observability tool specifically designed for Golang applications, aimed at monolithic services, microservices, cloud-native architectures, and containerized applications. It is the Go language implementation of the Apache SkyWalking probe project, providing comprehensive capabilities for service tracing, performance metrics analysis, and application topology analysis.&lt;/p&gt;
+&lt;p&gt;SkyWalking Go leverages Go&amp;rsquo;s concurrency features to achieve efficient data collection and analysis. By inserting a minimal amount of probe code into the application during compilation using AST (Abstract Syntax Tree), it can capture service request and response data, as well as system runtime status information. By reporting this collected data, SkyWalking Go can generate detailed service call chain diagrams, helping developers understand the dependencies between services and the performance status of each service.&lt;/p&gt;
+&lt;p&gt;SkyWalking Go currently provides the following three capabilities for users to manually report relevant information:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Trace&lt;/li&gt;
+&lt;li&gt;Metrics&lt;/li&gt;
+&lt;li&gt;Log&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This document aims to guide users on how to manually report log entries and metrics using the toolkit. For information on how to report trace linkage information with the toolkit, please refer to the &lt;a href=&#34;https://skywalking.apache.org/zh/2023-10-18-skywalking-toolkit-trace/&#34;&gt;SkyWalking Go Toolkit Trace Detailed Explanation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Before diving deeper, you may want to check the &lt;a href=&#34;https://skywalking.apache.org/zh/2023-06-01-quick-start-with-skywalking-go-agent/&#34;&gt;SkyWalking Go Agent Quick Start Guide&lt;/a&gt; to learn how to use the SkyWalking Go Agent.&lt;/p&gt;
+&lt;p&gt;The following sections will introduce how to use these interfaces in specific scenarios.&lt;/p&gt;
+&lt;h2 id=&#34;import-trace-toolkit&#34;&gt;Import Trace Toolkit&lt;/h2&gt;
+&lt;p&gt;First, execute the following command in the root directory of the project:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go get github.com/apache/skywalking-go/toolkit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;manually-report-logs&#34;&gt;Manually report logs&lt;/h2&gt;
+&lt;p&gt;In traceability, logs play a crucial role. They record detailed information about each request in the system, including timestamps, processing nodes, error messages, etc., which helps developers and operations teams quickly identify performance bottlenecks and the root causes of failures. By comparing logs from different requests, teams can analyze the flow of requests, optimize system architecture, and improve service response speed and stability.&lt;/p&gt;
+&lt;p&gt;In the SkyWalking Go toolkit, manually reported logs will be &lt;strong&gt;attached to the current context Span&lt;/strong&gt;, allowing us to associate specific log information with particular spans.&lt;/p&gt;
+&lt;p&gt;First, we need to import the toolkit log package:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;github.com/apache/skywalking-go/toolkit/logging&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can build a simple web service that determines the validity of a username based on the request parameters. When the userName parameter is invalid, we log an error using the logging.Error API. This log will be attached to the currently active Span in the context.&lt;/p&gt;
+&lt;p&gt;When recording logs, we can also append keyValues to the log information using variadic parameters, making the log entries more descriptive.&lt;/p&gt;
+&lt;p&gt;For detailed usage documentation, please refer to &lt;a href=&#34;https://skywalking.apache.org/docs/skywalking-go/next/en/advanced-features/manual-apis/toolkit-log/&#34;&gt;SkyWalking Go toolkit-logging&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;package&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;import&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;net/http&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;github.com/apache/skywalking-go&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;github.com/apache/skywalking-go/toolkit/logging&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;func&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;()&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;HandleFunc&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;/user&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;func&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;ResponseWriter&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;Request&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;userName&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;:=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;URL&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;Query&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;Get&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;userName&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;len&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;userName&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;||&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;userName&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;			&lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// Log an entry, which will be attached to the currently active Span in the context.&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;			&lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// We can append log tags using variadic parameters.&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;			&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;logging&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;Error&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;deny user login&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;userName&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;userName&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;			&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;WriteHeader&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;StatusUnauthorized&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;			&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;WriteHeader&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;StatusAccepted&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;})&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;:=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:8080&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;nil&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;nil&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;Fatalln&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;server running by err:&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then we enhance it using the SkyWalking &lt;code&gt;Go Agent&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go build -toolexec&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;/path/go-agent&amp;#34;&lt;/span&gt; -a -o demo .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;./log_en.png&#34; alt=&#34;Log Screenshot&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;manually-reporting-metrics-information&#34;&gt;Manually reporting metrics information&lt;/h2&gt;
+&lt;p&gt;Metrics are extremely important in traceability, as they provide quantitative analysis of system performance. By monitoring metrics such as request latency, throughput, and error rates, teams can identify performance bottlenecks and potential issues, allowing them to optimize system architecture and resource allocation. Combined with traceability, metrics can reveal the flow of requests between services, helping teams gain deeper insights into the health status and usage patterns of the system, ensuring high availability of services and a positive user experience, ultimately supporting business objectives effectively.&lt;/p&gt;
+&lt;p&gt;The current toolkit metrics support the following types of metrics:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Counter&lt;/li&gt;
+&lt;li&gt;Gauge&lt;/li&gt;
+&lt;li&gt;Histogram&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;First, execute the following command in the root directory of the project:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;github.com/apache/skywalking-go/toolkit/metric&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can build a simple Echo service that creates a Counter type metric to record the number of requests. At the same time, we can use metric.WithLabels to add additional labels to the metric.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;package&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;import&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;net/http&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;github.com/apache/skywalking-go&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;github.com/apache/skywalking-go/toolkit/metric&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;func&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;()&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// Create a Counter type metric&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// We also set labels for this Counter&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;counter&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;:=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;metric&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;NewCounter&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;http_request_count&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;metric&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;WithLabels&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;path&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;/ping&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;HandleFunc&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;/ping&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;func&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;ResponseWriter&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;Request&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// Increment the count by one for each incoming request&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;counter&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;Inc&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;w&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;WriteHeader&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;StatusOK&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;})&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;:=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;http&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:8080&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;nil&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;!=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;nil&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;		&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;Fatalln&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;server running by err:&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;err&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;	&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then we enhance it using the SkyWalking &lt;code&gt;Go Agent&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go build -toolexec&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;/path/go-agent&amp;#34;&lt;/span&gt; -a -o demo .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can display the metric information in the &lt;a href=&#34;https://skywalking.apache.org/docs/main/next/en/ui/readme/#widget&#34;&gt;SkyWalking Custom Dashboard&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;summarize&#34;&gt;Summarize&lt;/h2&gt;
+&lt;p&gt;This document discusses the basic usage of the Log APIs and Metrics APIs in SkyWalking Go. It provides users with the functionality to customize and report log entries and metric information.&lt;/p&gt;
+&lt;p&gt;The SkyWalking Go toolkit was designed with simplicity in mind, aiming to shorten the distance between users and the product.&lt;/p&gt;
+&lt;p&gt;For more information, please refer to &lt;a href=&#34;https://skywalking.apache.org/docs/skywalking-go/next/readme/&#34;&gt;SkyWalking Go&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Zh: 使用 LAL 收集并分析 Nginx access log</title>
+      <link>/zh/2023-10-29-collect-and-analyse-nginx-accesslog-by-lal/</link>
+      <pubDate>Sun, 29 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>/zh/2023-10-29-collect-and-analyse-nginx-accesslog-by-lal/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;背景介绍&#34;&gt;背景介绍&lt;/h2&gt;
+&lt;p&gt;Nginx access log 中包含了丰富的信息，例如：日志时间、状态码、响应时间、body 大小等。通过收集并分析 access log，我们可以实现对 Nginx 中接口状态的监控。&lt;/p&gt;
+&lt;p&gt;在本案例中，将由 &lt;a href=&#34;https://fluentbit.io/&#34;&gt;fluent-bit&lt;/a&gt; 收集 access log，并通过 HTTP 将日志信息发送给 SkyWalking OAP Server 进行进一步的分析。&lt;/p&gt;
+&lt;h2 id=&#34;环境准备&#34;&gt;环境准备&lt;/h2&gt;
+&lt;p&gt;实验需要的 Nginx 及 Fluent-bit 相关配置文件都被上传到了&lt;a href=&#34;https://github.com/weixiang1862/nginx-fluent-bit&#34;&gt;Github&lt;/a&gt;，有需要的读者可以自行 git clone 并通过 docker compose 启动，本文中将介绍配置文件中几个关键点。&lt;/p&gt;
+&lt;h3 id=&#34;nginx日志格式配置&#34;&gt;Nginx日志格式配置&lt;/h3&gt;
+&lt;p&gt;LAL 目前支持 JSON、YAML 及 REGEX 日志解析，为了方便获取到日志中的指标字段，我们将 Nginx 的日志格式定义为 JSON.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;http {
+    ...
+    ...
+
+    log_format  main  &amp;#39;{&amp;#34;remote_addr&amp;#34;: &amp;#34;$remote_addr&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;remote_user&amp;#34;: &amp;#34;$remote_user&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;request&amp;#34;: &amp;#34;$request&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;time&amp;#34;: &amp;#34;$time_iso8601&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;status&amp;#34;: &amp;#34;$status&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;request_time&amp;#34;:&amp;#34;$request_time&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;body_bytes_sent&amp;#34;: &amp;#34;$body_bytes_sent&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;http_referer&amp;#34;: &amp;#34;$http_referer&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;http_user_agent&amp;#34;: &amp;#34;$http_user_agent&amp;#34;,&amp;#39;
+            &amp;#39;&amp;#34;http_x_forwarded_for&amp;#34;: &amp;#34;$http_x_forwarded_for&amp;#34;}&amp;#39;;
+
+    access_log  /var/log/nginx/access.log  main;
+    
+    ...
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;fluent-bit-filter&#34;&gt;Fluent bit Filter&lt;/h3&gt;
+&lt;p&gt;我们通过 Fluent bit 的 lua filter 进行日志格式的改写，将其调整为 SkyWalking 所需要的格式，record的各个字段含义如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;body：日志内容体&lt;/li&gt;
+&lt;li&gt;service：服务名称&lt;/li&gt;
+&lt;li&gt;serviceInstance：实例名称&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;function rewrite_body(tag, timestamp, record)
+    local newRecord = {}
+    newRecord[&amp;#34;body&amp;#34;] = { json = { json = record.log } }
+    newRecord[&amp;#34;service&amp;#34;] = &amp;#34;nginx::nginx&amp;#34;
+    newRecord[&amp;#34;serviceInstance&amp;#34;] = &amp;#34;localhost&amp;#34;
+    return 1, timestamp, newRecord
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;oap-日志分析&#34;&gt;OAP 日志分析&lt;/h2&gt;
+&lt;h3 id=&#34;lal定义&#34;&gt;LAL定义&lt;/h3&gt;
+&lt;p&gt;在 filter 中，我们通过条件判断，只处理 &lt;code&gt;service=nginx::nginx&lt;/code&gt; 的服务，其他服务依旧走默认逻辑：&lt;/p&gt;
+&lt;p&gt;第一步，使用 json 指令对日志进行解析，解析的结果会被存放到 parsed 字段中，通过 parsed 字段我们可以获取 json 日志中的字段信息。&lt;/p&gt;
+&lt;p&gt;第二步，使用 timestamp 指令解析 parsed.time 并将其赋值给日志的 timestamp 字段，这里的 time 就是access log json 中的 time。&lt;/p&gt;
+&lt;p&gt;第三步，使用 tag 指令给日志打上对应的标签，标签的值依然可以通过 parsed 字段获取。&lt;/p&gt;
+&lt;p&gt;第四步，使用 metrics 指令从日志中提取出指标信息，我们共提取了四个指标：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nginx_log_count&lt;/code&gt;：Nginx 每次请求都会生成一条 access log，该指标可以帮助我们统计 Nginx 当前的请求数。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nginx_request_time&lt;/code&gt;：access log 中会记录请求时间，该指标可以帮助我们统计上游接口的响应时长。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nginx_body_bytes_sent&lt;/code&gt;：body 大小指标可以帮助我们了解网关上的流量情况。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nginx_status_code&lt;/code&gt;：状态码指标可以实现对状态码的监控，如果出现异常上涨可以结合 alarm 进行告警。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;rules&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;  &lt;/span&gt;- &lt;span style=&#34;color:#0550ae&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;default&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;layer&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;GENERAL&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;dsl&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;|&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;      filter {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;        if (log.service == &amp;#34;nginx::nginx&amp;#34;) {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;          json {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;            abortOnFailure true
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;          }&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;          &lt;/span&gt;extractor {&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;timestamp parsed.time as String, &amp;#34;yyyy-MM-dd&amp;#39;T&amp;#39;HH:mm:ssXXX&amp;#34;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;tag status&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;parsed.status&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;tag remote_addr&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;parsed.remote_addr&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;      
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;metrics {&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;timestamp log.timestamp as Long&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;labels service: log.service, instance&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;log.serviceInstance&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;name &amp;#34;nginx_log_count&amp;#34;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;value 1&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;metrics {&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;timestamp log.timestamp as Long&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;labels service: log.service, instance&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;log.serviceInstance&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;name &amp;#34;nginx_request_time&amp;#34;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;value parsed.request_time as Double&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;metrics {&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;timestamp log.timestamp as Long&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;labels service: log.service, instance&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;log.serviceInstance&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;name &amp;#34;nginx_body_bytes_sent&amp;#34;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;value parsed.body_bytes_sent as Long&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;metrics {&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;timestamp log.timestamp as Long&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;labels service: log.service, instance: log.serviceInstance, status&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;parsed.status&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;name &amp;#34;nginx_status_code&amp;#34;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;              &lt;/span&gt;value 1&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;            &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;          &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;      
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;sink {&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;      &lt;/span&gt;}&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;经过 LAL 处理后，我们已经可以在日志面板看到日志信息了，接下来我们将对 LAL 中提取的指标进行进一步分析：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./nginx-log.jpg&#34; alt=&#34;nginx-log&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;mal定义&#34;&gt;MAL定义&lt;/h3&gt;
+&lt;p&gt;在 MAL 中，我们可以对上一步 LAL 中提取的指标进行进一步的分析聚合，下面的例子里：&lt;/p&gt;
+&lt;p&gt;nginx_log_count、nginx_request_time、nginx_status_code 使用 sum 聚合函数处理，并使用 SUM 方式 downsampling，&lt;/p&gt;
+&lt;p&gt;nginx_request_time 使用 avg 聚合函数求平均值，默认使用 AVG 方式 downsampling。&lt;/p&gt;
+&lt;p&gt;完成聚合分析后，SkyWalking Meter System 会完成对上述指标的持久化。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;expSuffix&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;service([&amp;#39;service&amp;#39;], Layer.GENERAL)&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;metricPrefix&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;nginx&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;metricsRules&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;  &lt;/span&gt;- &lt;span style=&#34;color:#0550ae&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;cpm&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;exp&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;nginx_log_count.sum([&amp;#39;service&amp;#39;]).downsampling(SUM)&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;  &lt;/span&gt;- &lt;span style=&#34;color:#0550ae&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;avg_request_time&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;exp&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;nginx_request_time.avg([&amp;#39;service&amp;#39;])&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;  &lt;/span&gt;- &lt;span style=&#34;color:#0550ae&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;body_bytes_sent_count&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;exp&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;nginx_body_bytes_sent.sum([&amp;#39;service&amp;#39;]).downsampling(SUM)&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;  &lt;/span&gt;- &lt;span style=&#34;color:#0550ae&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;status_code_count&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;exp&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;nginx_status_code.sum([&amp;#39;service&amp;#39;,&amp;#39;status&amp;#39;]).downsampling(SUM)&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后，我们便可以来到 SkyWalking UI 页面新建 Nginx 仪表板，使用刚刚 MAL 中定义的指标信息创建 Nginx Dashboard（也可以通过上文提到&lt;a href=&#34;https://github.com/weixiang1862/nginx-fluent-bit&#34;&gt;仓库&lt;/a&gt;中的 dashboard.json 直接导入测试）：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./nginx-metric.jpg&#34; alt=&#34;nginx-metric&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考文档&#34;&gt;参考文档&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.fluentbit.io/manual/pipeline/filters/lua&#34;&gt;Fluent Bit lua Filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://skywalking.apache.org/docs/main/next/en/concepts-and-designs/lal/&#34;&gt;Log Analysis Language&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://skywalking.apache.org/docs/main/next/en/concepts-and-designs/mal/&#34;&gt;Meter Analysis Language&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Blog: New Features of SkyWalking Go 0.2.0</title>
+      <link>/blog/2023-07-31-skywalking-go-0.2.0-release/</link>
+      <pubDate>Mon, 31 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>/blog/2023-07-31-skywalking-go-0.2.0-release/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;announcing-apache-skywalking-go-020&#34;&gt;Announcing Apache SkyWalking Go 0.2.0&lt;/h1&gt;
+&lt;p&gt;I&amp;rsquo;m excited to announce the release of Apache SkyWalking Go 0.2.0! This version packs several awesome new features that I&amp;rsquo;ll overview below.&lt;/p&gt;
+&lt;h1 id=&#34;log-reporting&#34;&gt;Log Reporting&lt;/h1&gt;
+&lt;p&gt;The log reporting feature allows the Go agent to automatically collect log content from supported logging frameworks like &lt;a href=&#34;https://github.com/sirupsen/logrus&#34;&gt;logrus&lt;/a&gt; and &lt;a href=&#34;https://pkg.go.dev/go.uber.org/zap&#34;&gt;zap&lt;/a&gt;.
+The logs are organized and sent to the SkyWalking backend for visualization. You can see how the logs appear for each service in the SkyWalking UI:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;reported_logging.png&#34; alt=&#34;Reported Logging&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;making-logs-searchable&#34;&gt;Making Logs Searchable&lt;/h2&gt;
+&lt;p&gt;You can configure certain log fields to make them searchable in SkyWalking. Set the &lt;code&gt;SW_AGENT_LOG_REPORTER_LABEL_KEYS&lt;/code&gt; environment variable to include additional fields beyond the default log level.&lt;/p&gt;
+&lt;p&gt;For example, with logrus:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f6f8fa;background-color:#82071e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;define&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;log&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;with&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;fields&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;logrus&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;WithField&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;module&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;test-service&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;Info&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;test log&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;metrics-reporting&#34;&gt;Metrics Reporting&lt;/h2&gt;
+&lt;p&gt;The agent can now collect and report custom metrics data from &lt;code&gt;runtime/metrics&lt;/code&gt; to the backend. Supported metrics are documented &lt;a href=&#34;https://pkg.go.dev/runtime/metrics#hdr-Metric_key_format&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;metrics.png&#34; alt=&#34;Runtime Metrics&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;automatic-instrumentation&#34;&gt;Automatic Instrumentation&lt;/h1&gt;
+&lt;p&gt;In 0.1.0, you had to manually integrate the agent into your apps. Now, the new commands can automatically analyze and instrument projects at a specified path, no code changes needed!
+Try using the following command to import &lt;code&gt;skywalking-go&lt;/code&gt; into your project:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;# inject to project at current path&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;skywalking-go-agent -inject&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;./ -all
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or you can still use the original manual &lt;a href=&#34;https://github.com/apache/skywalking-go/blob/main/docs/en/setup/gobuild.md#22-code-dependency&#34;&gt;approach&lt;/a&gt; if preferred.&lt;/p&gt;
+&lt;h1 id=&#34;get-it-now&#34;&gt;Get It Now!&lt;/h1&gt;
+&lt;p&gt;Check out the &lt;a href=&#34;https://skywalking.apache.org/events/release-apache-skwaylking-go-0.2.0/&#34;&gt;CHANGELOG&lt;/a&gt; for the full list of additions and fixes. I encourage you to try out SkyWalking Go 0.2.0 today! Let me know if you have any feedback.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Blog: SourceMarker: Continuous Feedback for Developers</title>
+      <link>/blog/2021-03-16-continuous-feedback/</link>
+      <pubDate>Tue, 16 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>/blog/2021-03-16-continuous-feedback/</guid>
+      <description>
+        
+        
+        &lt;p&gt;&lt;img src=&#34;SM_IDE-APM.gif&#34; alt=&#34;Alt Text&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://sourcemarker.dev&#34;&gt;SourceMarker&lt;/a&gt; is an open-source continuous feedback IDE plugin built on top of Apache SkyWalking, a popular open-source APM system with monitoring, tracing, and diagnosing capabilities for distributed software systems. SkyWalking, a truly holistic system, provides the means for automatically producing, storing, and querying software operation metrics. It requires little to no code changes to implement and is lightweight enough to be used in production. By itself, SkyWalking is a formidable force in the realm of continuous monitoring technology.&lt;/p&gt;
+&lt;p&gt;SourceMarker, leveraging the continuous monitoring functionality provided by SkyWalking, creates continuous feedback technology by automatically linking software operation metrics to source code and displaying feedback directly inside of the IDE. While currently only supporting JetBrains-based IDEs and JVM-based programming languages, SourceMarker may be extended to support any number of programming languages and IDEs. Using SourceMarker, software developers can understand and validate software operation inside of their IDE. Instead of charts that indicate the health of the application, software developers can view the health of individual source code components and interpret software operation metrics from a much more familiar perspective. Such capabilities improve productivity as time spent continuously context switching from development to monitoring would be eliminated.&lt;/p&gt;
+&lt;h2 id=&#34;logging&#34;&gt;Logging&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;SM_Logging.gif&#34; alt=&#34;Logging&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The benefits of continuous feedback technology are immediately apparent with the ability to view and search logs directly from source code. Instead of tailing log files or viewing logs through the browser, SourceMarker allows software developers to navigate production logs just as easily as they navigate source code. By using the source code as the primary perspective for navigating logs, SourceMarker allows software developers to view logs specific to any package, class, method, or line directly from the context of the source code which resulted in those logs.&lt;/p&gt;
+&lt;h2 id=&#34;tracing&#34;&gt;Tracing&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;SM_Tracing.gif&#34; alt=&#34;Tracing&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Furthermore, continuous feedback technology offers software developers a deeper understanding of software by explicitly tying the implicit software operation to source code. Instead of visualizing software traces as Gantt charts, SourceMarker allows software developers to step through trace stacks while automatically resolving trace tags and logs. With SourceMarker, software developers can navigate production software traces in much the same way one debugs local applications.&lt;/p&gt;
+&lt;h2 id=&#34;alerting&#34;&gt;Alerting&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;SM_Alerting.gif&#34; alt=&#34;Alerting&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Most importantly, continuous feedback technology keeps software developers aware of production software operation. Armed with an APM-powered IDE, every software developer can keep track of the behavior of any method, class, package, and even the entire application itself. Moreover, this allows for source code to be the medium through which production bugs are made evident, thereby creating the feasibility of source code with the ability to self-diagnose and convey its own health.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;download-sourcemarker&#34;&gt;Download SourceMarker&lt;/h1&gt;
+&lt;p&gt;SourceMarker aims to bridge the theoretical and empirical practices of software development through continuous feedback. The goal is to make developing software with empirical data feel natural and intuitive, creating more complete software developers that understand the entire software development cycle.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sourceplusplus/sourcemarker&#34;&gt;https://github.com/sourceplusplus/sourcemarker&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This project is still early in its development, so if you think of any ways to improve SourceMarker, please let us know.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Blog: Apache SkyWalking 8.4: Logs, VM Monitoring, and Dynamic Configurations at Agent Side</title>
+      <link>/blog/skywalking8-4-release/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>/blog/skywalking8-4-release/</guid>
+      <description>
+        
+        
+        &lt;p&gt;&lt;img src=&#34;heading.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Origin: &lt;a href=&#34;https://www.tetrate.io/blog/skywalking-8-4/&#34;&gt;Tetrate.io blog&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The Apache SkyWalking team today announced the 8.4 release is generally available. This release fills the gap between all previous versions of SkyWalking and the logging domain area.
+The release also advances SkyWalking’s capabilities  for infrastructure observability, starting with virtual machine monitoring.&lt;/p&gt;
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;SkyWalking has historically focused on the tracing and metrics fields of observability.
+As its features for tracing, metrics and service level monitoring have become more and more powerful and stable, the SkyWalking team has started to explore new scenarios covered by observability.
+Because service performance is reflected in the logs, and is highly impacted by the infrastructure on which it runs, SkyWalking brings these two fields into the 8.4 release.
+This release blog briefly introduces the two new features as well as some other notable changes.&lt;/p&gt;
+&lt;h2 id=&#34;logs&#34;&gt;Logs&lt;/h2&gt;
+&lt;p&gt;Metrics, tracing, and logging are considered the three pillars of observability [1]. SkyWalking had the full features of metrics and tracing prior to 8.4; today, as 8.4 is released, the last piece of the jigsaw is now in place.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figure01.png&#34; alt=&#34;Logs Collected By SkyWalking&#34;&gt;
+Figure 1: Logs Collected By SkyWalking&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figure02.png&#34; alt=&#34;Logs Collected By SkyWalking&#34;&gt;
+Figure 2: Logs Collected By SkyWalking&lt;/p&gt;
+&lt;p&gt;The Java agent firstly provides SDKs to enhance the widely-used logging frameworks, log4j (1.x and 2.x) [2] and logback [3], and send the logs to the SkyWalking backend (OAP).
+The latter is able to collect logs from wherever the protocol is  implemented.
+This is not a big deal, but when it comes to the correlation between logs and traces, the traditional solution is to print the trace IDs in the logs, and pick the IDs in the error logs to query the related traces.
+SkyWalking just simplifies the workflow by correlating the logs and traces natively. Navigating between traces and their related logs is as simple as clicking a button.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figure03.png&#34; alt=&#34;Correlation Between Logs and Traces&#34;&gt;
+Figure 3: Correlation Between Logs and Traces&lt;/p&gt;
+&lt;h2 id=&#34;infrastructure-monitoring&#34;&gt;Infrastructure Monitoring&lt;/h2&gt;
+&lt;p&gt;SkyWalking is known as an application performance monitoring tool. One of the most important factors that impacts the application’s performance is the infrastructure on which the application runs.
+In the 8.4 release, we added the monitoring metrics of virtual machines into the dashboard.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figure04.png&#34; alt=&#34;VM Metrics&#34;&gt;
+Figure 4: VM Metrics&lt;/p&gt;
+&lt;p&gt;Fundamental metrics such as &lt;code&gt;CPU Used&lt;/code&gt;, &lt;code&gt;Memory Used&lt;/code&gt;,  &lt;code&gt;Disk Read / Write&lt;/code&gt; and &lt;code&gt;Network Usage&lt;/code&gt; are available on the dashboard.
+And as usual, those metrics are also available to be configured as alarm triggers when needed.&lt;/p&gt;
+&lt;h2 id=&#34;dynamic-configurations-at-agent-side&#34;&gt;Dynamic Configurations at Agent Side&lt;/h2&gt;
+&lt;p&gt;Dynamic configuration at the backend side has long existed in SkyWalking for several versions. Now, it finally comes to the agent side!
+Prior to 8.4, you’d have to restart the target services when you modify some configuration items of the agent &amp;ndash; for instance, sampling rate (agent side), ignorable endpoint paths, etc. Now, say goodbye to rebooting.
+Modifying configurations is not the only usage of the dynamic configuration mechanism. The latter gives countless possibilities to the agent side in terms of dynamic behaviours, e.g. enabling / disabling plugins, enabling / disabling the whole agent, etc. Just imagine!&lt;/p&gt;
+&lt;h2 id=&#34;grouped-service-topology&#34;&gt;Grouped Service Topology&lt;/h2&gt;
+&lt;p&gt;This enhancement is from the UI. SkyWalking backend supports grouping the services by user-defined dimensions. In a real world use case, the services are usually grouped by business group or department. When a developer opens the topology map, out of hundreds of services, he or she may just want to focus on the services in charge. The grouped service topology comes to the rescue: one can now choose to display only services belonging to a specified group.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figure05.png&#34; alt=&#34;Grouped Service Topology&#34;&gt;
+Figure 5: Grouped Service Topology&lt;/p&gt;
+&lt;h2 id=&#34;other-notable-enhancements&#34;&gt;Other Notable Enhancements&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Agent: resolves domain names to look up backend service IP addresses.&lt;/li&gt;
+&lt;li&gt;Backend: meter receiver supports meter analysis language (MAL).&lt;/li&gt;
+&lt;li&gt;Backend: several CVE fixes.&lt;/li&gt;
+&lt;li&gt;Backend: supports Envoy &lt;code&gt;{AccessLog,Metrics}Service&lt;/code&gt; API V3 and adopts MAL.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a href=&#34;https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html&#34;&gt;https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[2] &lt;a href=&#34;https://logging.apache.org/log4j/2.x/&#34;&gt;https://logging.apache.org/log4j/2.x/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[3] &lt;a href=&#34;http://logback.qos.ch&#34;&gt;http://logback.qos.ch&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;additional-resources&#34;&gt;Additional Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Read more about the &lt;a href=&#34;https://github.com/apache/skywalking/blob/v8.4.0/changes/changes-8.4.0.md&#34;&gt;SkyWalking 8.4 release highlights&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Get more SkyWalking updates on &lt;a href=&#34;https://twitter.com/ASFSkyWalking&#34;&gt;Twitter&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
