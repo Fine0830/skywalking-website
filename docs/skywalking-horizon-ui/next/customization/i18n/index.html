@@ -36,7 +36,7 @@ English is the immovable default. Every translatable string is authored in Engli
   <meta itemprop="description" content="Languages and Translations Horizon UI ships with eight locales:
 Locale Native name en English (source) de Deutsch es Español fr Français ja 日本語 ko 한국어 pt Português zh-CN 中文（简体） In the picker English sits on its own line at the top; the other seven are listed alphabetically by code so additions slot in predictably.
 English is the immovable default. Every translatable string is authored in English first; the other locales are catalog overlays. Missing keys fall back to English at the leaf, never at the file — a half-translated catalog renders strictly better than English-only.">
-  <meta itemprop="wordCount" content="666">
+  <meta itemprop="wordCount" content="923">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Languages and Translations">
   <meta name="twitter:description" content="Languages and Translations Horizon UI ships with eight locales:
@@ -45,8 +45,8 @@ English is the immovable default. Every translatable string is authored in Engli
 
 
 
-<link rel="preload" href="/scss/main.min.7b0122b0238b021800187754c7416861b20b7203f30fcac0842ed6e328f98ea3.css" as="style">
-<link href="/scss/main.min.7b0122b0238b021800187754c7416861b20b7203f30fcac0842ed6e328f98ea3.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.85feebce09908ae04cd1779ffc6f57f2abe5b9bbc47d13b06ae7d77875a800a1.css" as="style">
+<link href="/scss/main.min.85feebce09908ae04cd1779ffc6f57f2abe5b9bbc47d13b06ae7d77875a800a1.css" rel="stylesheet" integrity="">
 
 
 
@@ -332,6 +332,14 @@ English is the immovable default. Every translatable string is authored in Engli
                   
                     
                     
+                    <option ZgotmplZ value="v0.6.0">
+                    
+                      v0.6.0
+                    
+                    </option>
+                  
+                    
+                    
                     <option ZgotmplZ value="v0.5.0">
                     
                       v0.5.0
@@ -541,6 +549,14 @@ English is the immovable default. Every translatable string is authored in Engli
 
     
 
+    <li>
+        
+            <a href="/docs/skywalking-horizon-ui/next/operate/infra-3d-map">3D Infrastructure Map</a>
+        
+    </li>
+
+    
+
 </ul>
 
         
@@ -725,8 +741,9 @@ English is the immovable default. Every translatable string is authored in Engli
   })()
 </script>
 
-                  <div class="commit-id">Commit Id: c13f7b0</div>
+                  <div class="commit-id">Commit Id: dee06ac</div>
                 
+
 
 
 
@@ -821,6 +838,45 @@ are listed alphabetically by code so additions slot in predictably.</p>
 in English first; the other locales are catalog overlays. Missing keys
 fall back to English at the leaf, never at the file — a half-translated
 catalog renders strictly better than English-only.</p>
+<h2 id="coverage-by-scope">Coverage by scope</h2>
+<p>All eight languages are first-class across the surfaces Horizon controls. The scope decides <strong>where</strong> the translation resolves:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Scope</th>
+          <th>Resolves</th>
+          <th>Languages</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>UI chrome — buttons, labels, modals, login, topbar, sidebar</td>
+          <td>In the browser (vue-i18n)</td>
+          <td>All 8</td>
+      </tr>
+      <tr>
+          <td>Bundled layer-dashboard templates</td>
+          <td>On the BFF, from sibling overlay catalogs</td>
+          <td>All 8</td>
+      </tr>
+      <tr>
+          <td>Bundled overview templates</td>
+          <td>On the BFF</td>
+          <td>All 8</td>
+      </tr>
+      <tr>
+          <td>User-maintained dashboards saved to OAP</td>
+          <td>On the BFF, from each dashboard&rsquo;s embedded <code>i18n</code> block</td>
+          <td>English + whatever the author provides</td>
+      </tr>
+      <tr>
+          <td>OAP-supplied data — service / instance / endpoint / alarm names, tags, log lines, trace ops</td>
+          <td>not translated</td>
+          <td>rendered verbatim</td>
+      </tr>
+  </tbody>
+</table>
+<p>A missing key in any translated scope falls back to English at the leaf, so a partially-translated catalog renders better than English-only.</p>
 <h2 id="picking-a-language">Picking a language</h2>
 <p>The locale picker lives in the topbar (next to the theme chip) and on
 the login page. Picks are stored in your browser&rsquo;s local storage; the
@@ -912,6 +968,9 @@ silently dropped — the source is the schema.</li>
 common widget vocabulary from the shared lexicon so you only need
 to translate your own prose.</li>
 </ul>
+<h2 id="import--export">Import / Export</h2>
+<p>On the <strong>Translations</strong> page, <strong>Export</strong> downloads the in-use translation for the picked template and <strong>Target</strong> language — the version live on OAP, or the shipped seed — as a JSON file. <strong>Import</strong> reads such a file and loads it as a <strong>local draft</strong> for that language; review it in the preview, then <strong>Check diff &amp; push</strong> to publish. Import never writes OAP directly.</p>
+<p>Each language is its own file and its own row, so you export/import one language at a time. Source templates and their translations are edited on separate pages, so their import/export are separate too: a <a href="..//customization/overview-templates">template&rsquo;s export</a> carries the English source only — move its translations across here, per language.</p>
 <h2 id="adding-a-new-locale">Adding a new locale</h2>
 <p>Adding <code>de</code>, <code>fr</code>, or any other locale is three steps:</p>
 <ol>
@@ -933,6 +992,8 @@ template. Fill the gaps that the lexicon couldn&rsquo;t cover.</li>
 </span></span></code></pre></div><p>It rejects catalog keys that no longer match the source template,
 non-string values at translatable paths, and lexicon entries that
 aren&rsquo;t present in the source <code>en.json</code> lexicon registry.</p>
+<p>When you add a <strong>new layer</strong>, generating its template&rsquo;s translations is part
+of that workflow — see <a href="../adding-a-new-layer">Adding a New Layer</a>.</p>
 
 </div>
 
@@ -967,10 +1028,12 @@ aren&rsquo;t present in the source <code>en.json</code> lexicon registry.</p>
   <ul>
     <li><a href="#languages-and-translations">Languages and Translations</a>
       <ul>
+        <li><a href="#coverage-by-scope">Coverage by scope</a></li>
         <li><a href="#picking-a-language">Picking a language</a></li>
         <li><a href="#what-is-and-isnt-translated">What is and isn&rsquo;t translated</a></li>
         <li><a href="#ai-assisted-seeds">AI-assisted seeds</a></li>
         <li><a href="#translating-a-custom-dashboard">Translating a custom dashboard</a></li>
+        <li><a href="#import--export">Import / Export</a></li>
         <li><a href="#adding-a-new-locale">Adding a new locale</a></li>
       </ul>
     </li>
@@ -10019,6 +10082,92 @@ aren&rsquo;t present in the source <code>en.json</code> lexicon registry.</p>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="sky-event-popup">
 
     <div class="sky-pop-modal">
@@ -10032,6 +10181,8 @@ aren&rsquo;t present in the source <code>en.json</code> lexicon registry.</p>
         </div>
 
         <div class="content-box">
+            
+            
             
             
             
@@ -10081,6 +10232,90 @@ aren&rsquo;t present in the source <code>en.json</code> lexicon registry.</p>
                     
                 </a>
             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             

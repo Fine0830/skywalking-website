@@ -114,7 +114,7 @@ Property banyandb/property/v1/rpc.proto
 ApplyRequest
 ApplyResponse
 DeleteRequest">
-  <meta itemprop="wordCount" content="10816">
+  <meta itemprop="wordCount" content="10875">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Protocol Documentation">
   <meta name="twitter:description" content="Protocol Documentation Table of Contents banyandb/common/v1/trace.proto
@@ -162,8 +162,8 @@ DeleteRequest">
 
 
 
-<link rel="preload" href="/scss/main.min.7b0122b0238b021800187754c7416861b20b7203f30fcac0842ed6e328f98ea3.css" as="style">
-<link href="/scss/main.min.7b0122b0238b021800187754c7416861b20b7203f30fcac0842ed6e328f98ea3.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.85feebce09908ae04cd1779ffc6f57f2abe5b9bbc47d13b06ae7d77875a800a1.css" as="style">
+<link href="/scss/main.min.85feebce09908ae04cd1779ffc6f57f2abe5b9bbc47d13b06ae7d77875a800a1.css" rel="stylesheet" integrity="">
 
 
 
@@ -402,6 +402,7 @@ DeleteRequest">
       <div class="td-main">
         <div class="row flex-xl-nowrap">
           <div class="col-12 col-md-3 col-xl-2 d-print-none scroll-bar td-sidebar">
+
 
 
 
@@ -1429,7 +1430,7 @@ DeleteRequest">
   })()
 </script>
 
-                  <div class="commit-id">Commit Id: ccaf722</div>
+                  <div class="commit-id">Commit Id: 3366d2a</div>
                 
 
 
@@ -12954,6 +12955,12 @@ Registered on the internal gRPC server so FODC agent can access it.</p>
           <td></td>
           <td></td>
       </tr>
+      <tr>
+          <td>raw_element_id</td>
+          <td><a href="#uint64">uint64</a></td>
+          <td></td>
+          <td>raw_element_id carries the original storage-internal eID (an already-hashed uint64) forwarded by lifecycle row-replay. When non-zero, the receiver uses it directly and skips the HashStr step on element.element_id, so a logical element migrated through both chunk-sync and row-replay paths keeps the same target-side eID and query-layer dedup stays consistent. SDK and topN write paths leave this unset (0).</td>
+      </tr>
   </tbody>
 </table>
 <p><a name="banyandb-stream-v1-TagFamilySpec"></a></p>
@@ -23086,6 +23093,92 @@ Registered on the internal gRPC server so FODC agent can access it.</p>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="sky-event-popup">
 
     <div class="sky-pop-modal">
@@ -23099,6 +23192,8 @@ Registered on the internal gRPC server so FODC agent can access it.</p>
         </div>
 
         <div class="content-box">
+            
+            
             
             
             
@@ -23148,6 +23243,90 @@ Registered on the internal gRPC server so FODC agent can access it.</p>
                     
                 </a>
             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             

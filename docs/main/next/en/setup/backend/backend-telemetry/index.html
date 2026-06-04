@@ -45,8 +45,8 @@ telemetry: selector: ${SW_TELEMETRY:prometheus} none: prometheus: host: ${SW_TEL
 
 
 
-<link rel="preload" href="/scss/main.min.7b0122b0238b021800187754c7416861b20b7203f30fcac0842ed6e328f98ea3.css" as="style">
-<link href="/scss/main.min.7b0122b0238b021800187754c7416861b20b7203f30fcac0842ed6e328f98ea3.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/scss/main.min.85feebce09908ae04cd1779ffc6f57f2abe5b9bbc47d13b06ae7d77875a800a1.css" as="style">
+<link href="/scss/main.min.85feebce09908ae04cd1779ffc6f57f2abe5b9bbc47d13b06ae7d77875a800a1.css" rel="stylesheet" integrity="">
 
 
 
@@ -2988,8 +2988,9 @@ telemetry: selector: ${SW_TELEMETRY:prometheus} none: prometheus: host: ${SW_TEL
   })()
 </script>
 
-                  <div class="commit-id">Commit Id: ad73355</div>
+                  <div class="commit-id">Commit Id: 8962480</div>
                 
+
 
 
 
@@ -3080,7 +3081,7 @@ eventually showing up UI or GraphQL API.</p>
 </span></span></span></code></pre></div><ol start="2">
 <li>Set up OpenTelemetry to scrape the metrics from OAP telemetry.</li>
 </ol>
-<p>Refer to <a href="https://github.com/apache/skywalking/tree/ad733554b0273d6165eff7bae4150df83d49ebe8/test/e2e-v2/cases/so11y/otel-collector-config.yaml">the E2E test case</a> as an example.</p>
+<p>Refer to <a href="https://github.com/apache/skywalking/tree/89624809f078b6424b474323ae091f72b9e694b4/test/e2e-v2/cases/so11y/otel-collector-config.yaml">the E2E test case</a> as an example.</p>
 <p>For Kubernetes deployments, read the following section, otherwise you should be able to
 adjust the configurations below to fit your scenarios.</p>
 <h3 id="service-discovery-on-kubernetes">Service discovery on Kubernetes</h3>
@@ -3106,8 +3107,8 @@ SW_OTEL_RECEIVER_ENABLED_OTEL_METRICS_RULES=oap
              --set elasticsearch.minimumMasterNodes=1 \
              --set elasticsearch.imageTag=7.5.1 \
              --set oap.replicas=2 \
-             --set ui.image.repository=ghcr.io/apache/skywalking-horizon-ui \
-             --set ui.image.tag=$TAG \
+             --set ui.image.repository=apache/skywalking-ui \
+             --set ui.image.tag=latest \
              --set oap.image.tag=$TAG \
              --set oap.image.repository=$HUB/skywalking-oap \
              --set oap.storageType=elasticsearch \
@@ -12257,6 +12258,92 @@ Check <a href="../grafana-cluster.json">SkyWalking OAP Cluster Monitor Dashboard
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="sky-event-popup">
 
     <div class="sky-pop-modal">
@@ -12270,6 +12357,8 @@ Check <a href="../grafana-cluster.json">SkyWalking OAP Cluster Monitor Dashboard
         </div>
 
         <div class="content-box">
+            
+            
             
             
             
@@ -12319,6 +12408,90 @@ Check <a href="../grafana-cluster.json">SkyWalking OAP Cluster Monitor Dashboard
                     
                 </a>
             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
