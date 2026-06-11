@@ -27,7 +27,7 @@
   <meta property="og:title" content="horizon.yaml Reference">
   <meta property="og:description" content="horizon.yaml Reference horizon.yaml is the single configuration file for the Horizon BFF. Validation runs at startup and again on every hot reload. A file that fails validation is rejected; the BFF keeps the previously valid config rather than serving with broken settings.
 This page is the top-level map. Each subsection has its own detail page:
-Section Purpose Details server HTTP listener and static asset path. server oap OAP query / admin / Zipkin URLs, timeouts, basic-auth. oap auth Active backend (local or LDAP), local users, LDAP binding, break-glass. auth rbac Role definitions, permission grants, landing route per role. rbac session Cookie name, TTL, secure flag. session audit Audit log file path. audit setup / alarms State file paths. files debugLog Wire-level request/response log for troubleshooting. debugLog query Per-request query limits (the layer-landing service cap). below layers Layers to hide from the sidebar. below Top-level shape server: { host, port, staticDir? } oap: queryUrl: string adminUrl: string zipkinUrl?: string timeoutMs?: number auth?: { username, password } mqe?: { host?, port? } auth: backend: local | ldap local?: { users: [{ username, passwordHash, roles? }] } ldap?: { ... } breakGlass?: { username, passwordHash, roles? } rbac: enabled?: boolean roles?: { &lt;name&gt;: [verb, ...] } landingByRole?: { &lt;name&gt;: &#34;/route&#34; } session: { ttlMinutes?, cookieName?, cookieSecure? } audit: { file? } setup: { file? } alarms: { file? } debugLog: { enabled?, file?, maxBodyChars?, redactAuthHeaders? } layers: { excluded?: [{ key, reason? }] } Environment variable interpolation ${VAR} and ${VAR:default} are expanded before YAML parsing.">
+Section Purpose Details server HTTP listener and static asset path. server oap OAP query / admin / Zipkin URLs, timeouts, basic-auth. oap auth Active backend (local or LDAP), local users, LDAP binding, break-glass. auth rbac Role definitions, permission grants, landing route per role. rbac session Cookie name, TTL, secure flag. session audit Audit log file path. audit setup / alarms State file paths. files debugLog Wire-level request/response log for troubleshooting. debugLog query Per-request query limits (the layer-landing service cap). below sourceMaps In-memory source-map budgets &#43; static mount for the Browser Logs tab. Browser Logs &amp; Source Maps layers Layers to hide from the sidebar. below Top-level shape server: { host, port, staticDir? } oap: queryUrl: string adminUrl: string zipkinUrl?: string timeoutMs?: number auth?: { username, password } mqe?: { host?, port? } auth: backend: local | ldap local?: { users: [{ username, passwordHash, roles? }] } ldap?: { ... } breakGlass?: { username, passwordHash, roles? } rbac: enabled?: boolean roles?: { &lt;name&gt;: [verb, ...] } landingByRole?: { &lt;name&gt;: &#34;/route&#34; } session: { ttlMinutes?, cookieName?, cookieSecure? } audit: { file? } setup: { file? } alarms: { file? } debugLog: { enabled?, file?, maxBodyChars?, redactAuthHeaders? } sourceMaps: { enabled?, maxFileBytes?, maxTotalBytes?, maxFileCount?, bootMountDir? } layers: { excluded?: [{ key, reason? }] } Environment variable interpolation ${VAR} and ${VAR:default} are expanded before YAML parsing.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
@@ -35,13 +35,13 @@ Section Purpose Details server HTTP listener and static asset path. server oap O
   <meta itemprop="name" content="horizon.yaml Reference">
   <meta itemprop="description" content="horizon.yaml Reference horizon.yaml is the single configuration file for the Horizon BFF. Validation runs at startup and again on every hot reload. A file that fails validation is rejected; the BFF keeps the previously valid config rather than serving with broken settings.
 This page is the top-level map. Each subsection has its own detail page:
-Section Purpose Details server HTTP listener and static asset path. server oap OAP query / admin / Zipkin URLs, timeouts, basic-auth. oap auth Active backend (local or LDAP), local users, LDAP binding, break-glass. auth rbac Role definitions, permission grants, landing route per role. rbac session Cookie name, TTL, secure flag. session audit Audit log file path. audit setup / alarms State file paths. files debugLog Wire-level request/response log for troubleshooting. debugLog query Per-request query limits (the layer-landing service cap). below layers Layers to hide from the sidebar. below Top-level shape server: { host, port, staticDir? } oap: queryUrl: string adminUrl: string zipkinUrl?: string timeoutMs?: number auth?: { username, password } mqe?: { host?, port? } auth: backend: local | ldap local?: { users: [{ username, passwordHash, roles? }] } ldap?: { ... } breakGlass?: { username, passwordHash, roles? } rbac: enabled?: boolean roles?: { &lt;name&gt;: [verb, ...] } landingByRole?: { &lt;name&gt;: &#34;/route&#34; } session: { ttlMinutes?, cookieName?, cookieSecure? } audit: { file? } setup: { file? } alarms: { file? } debugLog: { enabled?, file?, maxBodyChars?, redactAuthHeaders? } layers: { excluded?: [{ key, reason? }] } Environment variable interpolation ${VAR} and ${VAR:default} are expanded before YAML parsing.">
-  <meta itemprop="wordCount" content="970">
+Section Purpose Details server HTTP listener and static asset path. server oap OAP query / admin / Zipkin URLs, timeouts, basic-auth. oap auth Active backend (local or LDAP), local users, LDAP binding, break-glass. auth rbac Role definitions, permission grants, landing route per role. rbac session Cookie name, TTL, secure flag. session audit Audit log file path. audit setup / alarms State file paths. files debugLog Wire-level request/response log for troubleshooting. debugLog query Per-request query limits (the layer-landing service cap). below sourceMaps In-memory source-map budgets &#43; static mount for the Browser Logs tab. Browser Logs &amp; Source Maps layers Layers to hide from the sidebar. below Top-level shape server: { host, port, staticDir? } oap: queryUrl: string adminUrl: string zipkinUrl?: string timeoutMs?: number auth?: { username, password } mqe?: { host?, port? } auth: backend: local | ldap local?: { users: [{ username, passwordHash, roles? }] } ldap?: { ... } breakGlass?: { username, passwordHash, roles? } rbac: enabled?: boolean roles?: { &lt;name&gt;: [verb, ...] } landingByRole?: { &lt;name&gt;: &#34;/route&#34; } session: { ttlMinutes?, cookieName?, cookieSecure? } audit: { file? } setup: { file? } alarms: { file? } debugLog: { enabled?, file?, maxBodyChars?, redactAuthHeaders? } sourceMaps: { enabled?, maxFileBytes?, maxTotalBytes?, maxFileCount?, bootMountDir? } layers: { excluded?: [{ key, reason? }] } Environment variable interpolation ${VAR} and ${VAR:default} are expanded before YAML parsing.">
+  <meta itemprop="wordCount" content="1111">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="horizon.yaml Reference">
   <meta name="twitter:description" content="horizon.yaml Reference horizon.yaml is the single configuration file for the Horizon BFF. Validation runs at startup and again on every hot reload. A file that fails validation is rejected; the BFF keeps the previously valid config rather than serving with broken settings.
 This page is the top-level map. Each subsection has its own detail page:
-Section Purpose Details server HTTP listener and static asset path. server oap OAP query / admin / Zipkin URLs, timeouts, basic-auth. oap auth Active backend (local or LDAP), local users, LDAP binding, break-glass. auth rbac Role definitions, permission grants, landing route per role. rbac session Cookie name, TTL, secure flag. session audit Audit log file path. audit setup / alarms State file paths. files debugLog Wire-level request/response log for troubleshooting. debugLog query Per-request query limits (the layer-landing service cap). below layers Layers to hide from the sidebar. below Top-level shape server: { host, port, staticDir? } oap: queryUrl: string adminUrl: string zipkinUrl?: string timeoutMs?: number auth?: { username, password } mqe?: { host?, port? } auth: backend: local | ldap local?: { users: [{ username, passwordHash, roles? }] } ldap?: { ... } breakGlass?: { username, passwordHash, roles? } rbac: enabled?: boolean roles?: { &lt;name&gt;: [verb, ...] } landingByRole?: { &lt;name&gt;: &#34;/route&#34; } session: { ttlMinutes?, cookieName?, cookieSecure? } audit: { file? } setup: { file? } alarms: { file? } debugLog: { enabled?, file?, maxBodyChars?, redactAuthHeaders? } layers: { excluded?: [{ key, reason? }] } Environment variable interpolation ${VAR} and ${VAR:default} are expanded before YAML parsing.">
+Section Purpose Details server HTTP listener and static asset path. server oap OAP query / admin / Zipkin URLs, timeouts, basic-auth. oap auth Active backend (local or LDAP), local users, LDAP binding, break-glass. auth rbac Role definitions, permission grants, landing route per role. rbac session Cookie name, TTL, secure flag. session audit Audit log file path. audit setup / alarms State file paths. files debugLog Wire-level request/response log for troubleshooting. debugLog query Per-request query limits (the layer-landing service cap). below sourceMaps In-memory source-map budgets &#43; static mount for the Browser Logs tab. Browser Logs &amp; Source Maps layers Layers to hide from the sidebar. below Top-level shape server: { host, port, staticDir? } oap: queryUrl: string adminUrl: string zipkinUrl?: string timeoutMs?: number auth?: { username, password } mqe?: { host?, port? } auth: backend: local | ldap local?: { users: [{ username, passwordHash, roles? }] } ldap?: { ... } breakGlass?: { username, passwordHash, roles? } rbac: enabled?: boolean roles?: { &lt;name&gt;: [verb, ...] } landingByRole?: { &lt;name&gt;: &#34;/route&#34; } session: { ttlMinutes?, cookieName?, cookieSecure? } audit: { file? } setup: { file? } alarms: { file? } debugLog: { enabled?, file?, maxBodyChars?, redactAuthHeaders? } sourceMaps: { enabled?, maxFileBytes?, maxTotalBytes?, maxFileCount?, bootMountDir? } layers: { excluded?: [{ key, reason? }] } Environment variable interpolation ${VAR} and ${VAR:default} are expanded before YAML parsing.">
 
 
 
@@ -557,6 +557,14 @@ Section Purpose Details server HTTP listener and static asset path. server oap O
 
     
 
+    <li>
+        
+            <a href="/docs/skywalking-horizon-ui/next/operate/browser-source-maps">Browser Logs &amp; Source Maps</a>
+        
+    </li>
+
+    
+
 </ul>
 
         
@@ -741,7 +749,7 @@ Section Purpose Details server HTTP listener and static asset path. server oap O
   })()
 </script>
 
-                  <div class="commit-id">Commit Id: c4fba8d</div>
+                  <div class="commit-id">Commit Id: 86b5d22</div>
                 
 
 
@@ -846,6 +854,11 @@ Section Purpose Details server HTTP listener and static asset path. server oap O
           <td><a href="#query-limits">below</a></td>
       </tr>
       <tr>
+          <td><code>sourceMaps</code></td>
+          <td>In-memory source-map budgets + static mount for the Browser Logs tab.</td>
+          <td><a href="../../operate/browser-source-maps">Browser Logs &amp; Source Maps</a></td>
+      </tr>
+      <tr>
           <td><code>layers</code></td>
           <td>Layers to hide from the sidebar.</td>
           <td><a href="#excluded-layers">below</a></td>
@@ -879,6 +892,7 @@ Section Purpose Details server HTTP listener and static asset path. server oap O
 </span></span></span><span style="display:flex;"><span><span style="color:#0550ae">setup</span><span style="color:#1f2328">:</span><span style="color:#fff">   </span>{<span style="color:#fff"> </span>file? }<span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#0550ae">alarms</span><span style="color:#1f2328">:</span><span style="color:#fff">  </span>{<span style="color:#fff"> </span>file? }<span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#0550ae">debugLog</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>{<span style="color:#fff"> </span>enabled?, file?, maxBodyChars?, redactAuthHeaders? }<span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">sourceMaps</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span>{<span style="color:#fff"> </span>enabled?, maxFileBytes?, maxTotalBytes?, maxFileCount?, bootMountDir? }<span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#0550ae">layers</span><span style="color:#1f2328">:</span><span style="color:#fff">  </span>{<span style="color:#fff"> </span><span style="color:#0550ae">excluded?</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">[</span>{<span style="color:#fff"> </span>key, reason? }] }<span style="color:#fff">
 </span></span></span></code></pre></div><h2 id="environment-variable-interpolation">Environment variable interpolation</h2>
 <p><code>${VAR}</code> and <code>${VAR:default}</code> are expanded <strong>before</strong> YAML parsing.</p>
@@ -913,11 +927,14 @@ Section Purpose Details server HTTP listener and static asset path. server oap O
 <li>RBAC roles and policy (re-evaluated on next route call).</li>
 <li>OAP URLs and credentials (used on next outbound call).</li>
 <li>Session TTL (new sessions use the new TTL; existing sessions keep their original).</li>
+<li><code>sourceMaps.enabled</code>, <code>sourceMaps.maxTotalBytes</code>, <code>sourceMaps.maxFileCount</code> — applied on the next source-map upload / resolve / list. Lowering a budget trims the in-memory <strong>uploaded</strong> set then (least-recently-used first). It does <strong>not</strong> shrink maps already loaded from the static mount — see below.</li>
 </ul>
-<p>Two changes require a process restart:</p>
+<p>These changes require a process restart:</p>
 <ul>
 <li><code>server.host</code>, <code>server.port</code> — the listener already bound.</li>
 <li>Capability probes — the OAP schema introspection cache is per-process.</li>
+<li><code>sourceMaps.bootMountDir</code> — the static source-map directory is scanned once at startup, so a new directory (and newly-dropped <code>.map</code> files) needs a restart. The count of maps loaded from that mount is fixed by the startup scan as well: lowering <code>sourceMaps.maxFileCount</code> afterwards trims only the in-memory uploaded set, never the already-mounted maps — restart to re-scan a mount against a lower count.</li>
+<li><strong>Raising</strong> <code>sourceMaps.maxFileBytes</code> — the multipart upload size limit is fixed at startup; lowering it applies live.</li>
 </ul>
 <h2 id="query-limits">Query limits</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#0550ae">query</span><span style="color:#1f2328">:</span><span style="color:#fff">
@@ -1128,6 +1145,12 @@ Layer dashboards page.</li>
 
     </div>
     
+
+
+
+
+
+
 
 
 
