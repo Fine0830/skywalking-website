@@ -2701,6 +2701,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-horizon-ui/next/operate/log-inspect/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-horizon-ui/next/operate/logs/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -2710,6 +2714,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-horizon-ui/next/operate/service-map/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-horizon-ui/next/operate/trace-inspect/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -5616,10 +5624,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-horizon-ui/latest/claude/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>/docs/skywalking-horizon-ui/next/claude/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -16877,6 +16881,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-horizon-ui/next/customization/global-defaults/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/main/latest/en/setup/backend/backend-profile-thread-merging/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -17242,6 +17250,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/main/v9.7.0/en/setup/backend/trace-sampling/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/main/next/en/banyandb/tail-sampling/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>

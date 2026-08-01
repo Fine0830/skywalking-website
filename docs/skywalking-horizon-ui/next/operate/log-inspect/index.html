@@ -22,23 +22,20 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 
-<title>CLAUDE.md — Writing the Horizon UI docs | Apache SkyWalking</title><meta property="og:url" content="/docs/skywalking-horizon-ui/next/claude/">
+<title>&lt;!-- | Apache SkyWalking</title><meta property="og:url" content="/docs/skywalking-horizon-ui/next/operate/log-inspect/">
   <meta property="og:site_name" content="Apache SkyWalking">
-  <meta property="og:title" content="CLAUDE.md — Writing the Horizon UI docs">
-  <meta property="og:description" content="CLAUDE.md — Writing the Horizon UI docs docs/ is the public website documentation for Horizon UI — a flat tree, ordered by menu.yml, synced to the Apache SkyWalking website. It is written for the people who run and configure Horizon (operators, dashboard authors), not for contributors hacking on the code. These are the principles for every page here. For the project-wide rules, see the root CLAUDE.md.
-1. Operator perspective first Document what a feature does, how to configure it, and how to operate / troubleshoot it — observable behavior and configuration.">
+  <meta property="og:title" content="&lt;!--">
+  <meta property="og:description" content="Log Inspect Log Inspect (/operate/log-inspect) is the cross-layer log query tool in the sidebar. The per-layer Logs tab starts from a layer and the service picked in its header; this page starts from nothing. Open it, name any service — or no service at all — and query across everything the log store holds. It unifies three log sources on one page: the stored log stream, browser JavaScript errors, and on-demand Kubernetes pod tails.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
 
-  <meta itemprop="name" content="CLAUDE.md — Writing the Horizon UI docs">
-  <meta itemprop="description" content="CLAUDE.md — Writing the Horizon UI docs docs/ is the public website documentation for Horizon UI — a flat tree, ordered by menu.yml, synced to the Apache SkyWalking website. It is written for the people who run and configure Horizon (operators, dashboard authors), not for contributors hacking on the code. These are the principles for every page here. For the project-wide rules, see the root CLAUDE.md.
-1. Operator perspective first Document what a feature does, how to configure it, and how to operate / troubleshoot it — observable behavior and configuration.">
-  <meta itemprop="wordCount" content="540">
+  <meta itemprop="name" content="&lt;!--">
+  <meta itemprop="description" content="Log Inspect Log Inspect (/operate/log-inspect) is the cross-layer log query tool in the sidebar. The per-layer Logs tab starts from a layer and the service picked in its header; this page starts from nothing. Open it, name any service — or no service at all — and query across everything the log store holds. It unifies three log sources on one page: the stored log stream, browser JavaScript errors, and on-demand Kubernetes pod tails.">
+  <meta itemprop="wordCount" content="1243">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CLAUDE.md — Writing the Horizon UI docs">
-  <meta name="twitter:description" content="CLAUDE.md — Writing the Horizon UI docs docs/ is the public website documentation for Horizon UI — a flat tree, ordered by menu.yml, synced to the Apache SkyWalking website. It is written for the people who run and configure Horizon (operators, dashboard authors), not for contributors hacking on the code. These are the principles for every page here. For the project-wide rules, see the root CLAUDE.md.
-1. Operator perspective first Document what a feature does, how to configure it, and how to operate / troubleshoot it — observable behavior and configuration.">
+  <meta name="twitter:title" content="&lt;!--">
+  <meta name="twitter:description" content="Log Inspect Log Inspect (/operate/log-inspect) is the cross-layer log query tool in the sidebar. The per-layer Logs tab starts from a layer and the service picked in its header; this page starts from nothing. Open it, name any service — or no service at all — and query across everything the log store holds. It unifies three log sources on one page: the stored log stream, browser JavaScript errors, and on-demand Kubernetes pod tails.">
 
 
 
@@ -58,7 +55,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap">
 
 
-    <title>CLAUDE.md — Writing the Horizon UI docs | Apache SkyWalking</title>
+    <title>&lt;!-- | Apache SkyWalking</title>
   </head>
   <body class="td-page  project-doc">
     <header>
@@ -589,6 +586,22 @@
     <li>
         
             <a href="/docs/skywalking-horizon-ui/next/operate/inspect">Metrics Inspect</a>
+        
+    </li>
+
+    
+
+    <li>
+        
+            <a href="/docs/skywalking-horizon-ui/next/operate/trace-inspect">Trace Inspect</a>
+        
+    </li>
+
+    
+
+    <li>
+        
+            <a href="/docs/skywalking-horizon-ui/next/operate/log-inspect">Log Inspect</a>
         
     </li>
 
@@ -1135,6 +1148,14 @@
 
     
 
+    <li>
+        
+            <a href="/docs/skywalking-horizon-ui/next/customization/global-defaults">Themes and Global Defaults</a>
+        
+    </li>
+
+    
+
 </ul>
 
         
@@ -1209,7 +1230,7 @@
   })()
 </script>
 
-                  <div class="commit-id">Commit Id: 173043f</div>
+                  <div class="commit-id">Commit Id: 2975fc3</div>
                 
 
 
@@ -1256,66 +1277,95 @@
               <i class="iconfont icon-menu-doc doc-menu-button"></i>
               
 <div class="td-content">
-	<h1 id="claudemd--writing-the-horizon-ui-docs">CLAUDE.md — Writing the Horizon UI docs</h1>
-<p><code>docs/</code> is the <strong>public website documentation</strong> for Horizon UI — a flat tree,
-ordered by <code>menu.yml</code>, synced to the Apache SkyWalking website. It is written
-for the people who <strong>run and configure</strong> Horizon (operators, dashboard
-authors), not for contributors hacking on the code. These are the principles
-for every page here. For the project-wide rules, see the root
-<a href="https://github.com/apache/skywalking-horizon-ui/tree/173043f1be9909463b23813e283ce75e5c11b5d1/CLAUDE.md">CLAUDE.md</a>.</p>
-<h2 id="1-operator-perspective-first">1. Operator perspective first</h2>
-<p>Document what a feature <strong>does</strong>, how to <strong>configure</strong> it, and how to
-<strong>operate / troubleshoot</strong> it — observable behavior and configuration.</p>
-<p>Do <strong>not</strong> document the internals:</p>
+	<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<h1 id="log-inspect">Log Inspect</h1>
+<p><strong>Log Inspect</strong> (<code>/operate/log-inspect</code>) is the cross-layer log query tool in the sidebar. The per-layer <a href="../logs">Logs</a> tab starts from a layer and the service picked in its header; this page starts from nothing. Open it, name any service — or no service at all — and query across everything the log store holds. It unifies three log sources on one page: the stored log stream, browser JavaScript errors, and on-demand Kubernetes pod tails.</p>
+<p>Like the other triage pages, it owns its own time range — the global topbar time picker does not apply — and (for the stored sources) nothing is fetched until you press <strong>Run query</strong>. Conditions are staged; switching source clears the previous result so streams never mix.</p>
+<h2 id="sources">Sources</h2>
+<p>The <strong>Source</strong> toggle at the top picks what kind of logs you are after:</p>
 <ul>
-<li>no source-file paths (<code>apps/bff/src/…</code>, <code>apps/ui/src/…</code>),</li>
-<li>no internal function / composable / store / route-handler names,</li>
-<li>no implementation narration (&ldquo;the BFF then chunks / fans out / probes …&rdquo;),</li>
-<li>no step-by-step retelling of the code&rsquo;s algorithm.</li>
+<li><strong>Raw</strong> — the logs SkyWalking has collected and stored: the same store as the per-layer Logs tab, queried across every layer.</li>
+<li><strong>Browser</strong> — the JavaScript errors reported by the browser agent, with inline source-map management and per-row stack de-obfuscation.</li>
+<li><strong>Kubernetes Pod logs</strong> — a live tail of one pod&rsquo;s container output, pulled through OAP on demand and never persisted.</li>
 </ul>
-<p>If a sentence only makes sense to someone reading the source, it does not
-belong in a doc.</p>
-<p><strong>One carve-out: contributor pages.</strong> A few pages document repo / file-based
-authoring that has no UI path — adding a new layer template, contributing a
-translation catalog or a new locale. These are explicitly contributor-facing
-and may reference repo files, <code>pnpm</code> commands, and the dev workflow; keep them
-scoped to that task. Today: <code>customization/adding-a-new-layer.md</code> and the
-contributor sections of <code>customization/i18n.md</code>. Everything else stays
-operator-facing.</p>
-<h2 id="2-config-is-edited-in-the-ui--lead-with-that-json-is-an-appendix">2. Config is edited in the UI — lead with that; JSON is an appendix</h2>
-<p>Almost everything configurable in Horizon (layer dashboards, overview
-templates, the 3D-map config, alarm-page setup, global defaults, translations)
-is edited through a <strong>structured / visual admin page</strong>, on a bundled default →
-local draft → <strong>Check diff &amp; push</strong> to OAP flow. A configuration page should:</p>
+<h2 id="target--pick-it-type-it-or-leave-it-blank">Target — pick it, type it, or leave it blank</h2>
+<p>For the <strong>Raw</strong> and <strong>Browser</strong> sources the <strong>Target</strong> is optional: blank queries every service in the window. Two modes scope it:</p>
 <ul>
-<li><strong>Start from the concept</strong> — what this configuration is and what it controls.</li>
-<li><strong>Then the UI</strong> — which admin page edits it and what the controls do.</li>
-<li><strong>Keep the JSON / schema as a reference appendix</strong> at the end, framed as the
-<em>stored</em> format the editor reads and writes (useful for understanding the
-fields, or authoring as files), <strong>not</strong> as the primary &ldquo;how to author&rdquo; path.</li>
+<li><strong>Pick</strong> — choose a <strong>Layer</strong>, then a <strong>Service</strong> from its catalog, then optionally an <strong>Instance</strong> and/or <strong>Endpoint</strong>. On the Browser source these last two are labelled <strong>Version</strong> and <strong>Page</strong>, because that is what a browser app&rsquo;s instances and endpoints are.</li>
+<li><strong>Type</strong> — enter a <strong>Service name</strong> directly, with a <strong>Real</strong> checkbox (off for a virtual/peer service), plus optional instance/endpoint (version/page) names. Typing needs no layer.</li>
 </ul>
-<p>There is <strong>no raw-JSON editor on these pages.</strong> Never tell the reader to &ldquo;edit
-the JSON&rdquo; on a page — they use the structured controls. The Monaco view that
-appears is a read-only <strong>diff</strong> for review before pushing.</p>
-<h2 id="3-dont-hardcode-the-horizon-version">3. Don&rsquo;t hardcode the Horizon version</h2>
-<p>The website serves these docs <strong>pinned per release</strong>, so a version string in
-the body is redundant and silently goes stale on the next release. By default,
-write version-neutral: use a <code>&lt;version&gt;</code> placeholder in install commands, or
-phrase around it. State a concrete version only when the content is genuinely
-version-specific (a compatibility note, or a &ldquo;new in X&rdquo; call-out you
-deliberately want pinned).</p>
-<p>The <strong>one maintained exception</strong> is <code>setup/container-image.md</code>: its image tags
-track the current release and are advanced automatically by the release tooling
-— leave them as concrete versions.</p>
-<h2 id="4-other-house-rules">4. Other house rules</h2>
+<p>The <strong>→ edit as text</strong> link converts the current Pick selection into the Type form. Raw and Browser share one target, so switching between them keeps your pick; only crossing into or out of the pods source resets it.</p>
+<h2 id="raw--stored-logs-across-layers">Raw — stored logs across layers</h2>
+<p>Conditions for the stored stream:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Condition</th>
+          <th>What it does</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Tags</td>
+          <td>Comma-separated <code>key=value</code> pairs, AND-joined, with autocomplete: type to see known keys, type <code>=</code> for that key&rsquo;s known values, <strong>Enter</strong> commits the pair and primes a comma for the next. Filter by level with a <code>level=…</code> tag.</td>
+      </tr>
+      <tr>
+          <td>Trace ID</td>
+          <td>Show only the lines correlated with one trace.</td>
+      </tr>
+      <tr>
+          <td>Time</td>
+          <td>A rolling preset (15m, 30m, 1h, 3h, 6h, 12h, 24h) or <strong>Custom…</strong> with an absolute start/end pair. Second-precision, like the per-layer tab.</td>
+      </tr>
+      <tr>
+          <td>Limit</td>
+          <td>Result cap: 20, 50 (default), 100, or 200. The server additionally caps a single batch at its configured page-size limit (100 by default), so 200 only takes effect when that limit has been raised — see the query-limits section of the <a href="../../setup/horizon-yaml">horizon.yaml reference</a>.</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Run query</strong> fetches one batch of the newest matching lines. Rows render exactly as on the per-layer tab — timestamp, level, service, an <strong>↗ trace</strong> link when trace-correlated, a format chip, and a one-line preview — and clicking a row opens the same full-payload popout: format-aware pretty-printing, <strong>Copy</strong>, the service/instance/endpoint/trace context, and the tag table. The <strong>↗ trace</strong> links open the related trace&rsquo;s waterfall in an overlay without leaving the page. <strong>Escape</strong> or the backdrop closes the popout, and a re-run that no longer contains the open row closes it too.</p>
+<p>Unlike the per-layer Logs tab there is no density histogram, no Levels strip, and no pager — this page returns a single batch capped by <strong>Limit</strong>. It trades the browsing chrome for reach: any service, any layer, or all of them at once.</p>
+<h2 id="browser--js-errors-with-source-map-resolve">Browser — JS errors with source-map resolve</h2>
+<p>The Browser source queries the errors browser agents report, across every browser app at once if you leave the target blank. Its conditions are <strong>Category</strong> (All, or one of <code>AJAX</code>, <code>RESOURCE</code>, <code>VUE</code>, <code>PROMISE</code>, <code>JS</code>, <code>UNKNOWN</code>) plus the shared <strong>Time</strong> and <strong>Limit</strong>.</p>
+<p>Below the conditions sits the <strong>source-map manager</strong> — the same map store the per-layer <a href="../browser-source-maps">Browser Logs</a> tab uses, managed inline so you never have to leave the page to make a stack readable. It lists the maps currently available (statically mounted ones and temporary uploads), shows the memory-usage bar, and offers <strong>Upload .map</strong> and per-upload remove. Uploaded maps live in server memory only; mounted maps cannot be removed here. If de-obfuscation is disabled on the server, the manager says so instead.</p>
+<p>Results render as a dense error list: time, category (color-keyed), page, app version, and the message. Click a row to open the browser-error popout — the error&rsquo;s metadata and raw stack on one side, and the de-obfuscation control on the other: pick a hosted map (the first one is pre-selected), press <strong>Resolve</strong>, and read the original file/line/symbol frames with source snippets. Which map matches which build is your call — see <a href="../browser-source-maps">Browser Logs &amp; Source Maps</a> for the matching rules and the resolvable categories.</p>
+<h2 id="kubernetes-pod-logs--live-tails-without-entering-a-layer">Kubernetes Pod logs — live tails without entering a layer</h2>
+<p>The pods source is the cross-layer twin of the per-layer Pod Logs tab: it tails one pod&rsquo;s container output straight from the cluster through OAP. Nothing is persisted — each poll pulls the trailing window and discards it — so the pod must be currently running.</p>
+<p>Unlike the other two sources, the target here is <strong>required</strong>: a specific pod and container.</p>
+<ol>
+<li>Pick a <strong>Layer</strong> and a <strong>Service</strong> (with exactly one Kubernetes-aware layer in your menu, the layer is pre-selected) — or switch the service field to <strong>Type</strong> and enter the service name directly, no layer needed.</li>
+<li>Pick the <strong>Pod</strong> — the service instance. A single-pod service is auto-selected.</li>
+<li>Pick the <strong>Container</strong> — the pod&rsquo;s containers are listed and the first is auto-selected.</li>
+<li>Choose the trailing <strong>Window</strong> (Last 30s to Last 30m) and the poll <strong>Interval</strong> (2s–30s).</li>
+<li>Press <strong>Start</strong> to tail live, <strong>Pause</strong> to stop, or <strong>Refresh</strong> for a one-shot fetch (which also pauses a running tail).</li>
+</ol>
+<p><strong>Include</strong> / <strong>Exclude</strong> chip fields narrow the lines: type a full-line regular expression (for example <code>.*error.*</code>) and press <strong>Enter</strong> to add it; the <strong>×</strong> removes a chip. Includes keep matching lines, excludes drop them, and changing them mid-tail re-runs with the new filters. Re-targeting the pod, container, or service stops the tail so a stale loop never bleeds across pods.</p>
+<p>On-demand pod logs are disabled by default on OAP; when the feature is off or the pod no longer exists, the reason appears in a banner — see the pod-logs troubleshooting on the <a href="../logs">Logs</a> page, which applies here unchanged.</p>
+<h2 id="resolved-query">Resolved query</h2>
+<p>For the Raw and Browser sources, a <strong>Resolved query</strong> toggle appears after each run: it names the source and expands to the exact condition that was sent — resolved service ids, computed window, filled-in defaults. When a query returns something unexpected, read it first. Pod tails are live fetches rather than stored-store queries, so they have no resolved-query panel.</p>
+<h2 id="permissions">Permissions</h2>
+<p>The page and the raw/browser queries require the <code>inspect:read</code> permission. The tag autocomplete, the container list, and the pod tail additionally use <code>logs:read</code>; the source-map list and stack resolve use <code>browser-errors:read</code> (uploading or removing maps needs <code>source-map:write</code>); and the Pick-mode layer/service dropdowns use <code>metrics:read</code>. The bundled roles that grant <code>inspect:read</code> include the read verbs. See <a href="../../access-control/rbac">Roles and Permissions</a>.</p>
+<h2 id="related">Related</h2>
 <ul>
-<li><strong>Tech terms and proper nouns stay verbatim</strong> — SkyWalking, OAP, MQE, eBPF,
-Kubernetes, Istio, GraphQL, layer keys (<code>GENERAL</code>, <code>MESH</code>), scope enums
-(Service, Endpoint), metric ids. Don&rsquo;t translate or rename them.</li>
-<li><strong>Cross-link, don&rsquo;t duplicate.</strong> One canonical page per concept; link to it
-rather than restating it.</li>
-<li><strong>Add new pages to <code>menu.yml</code>.</strong> A page that isn&rsquo;t in the menu isn&rsquo;t
-navigable on the site.</li>
+<li><a href="../logs">Logs</a> — the per-layer stored-log stream and Pod Logs tab, with the full condition and troubleshooting reference.</li>
+<li><a href="../browser-source-maps">Browser Logs &amp; Source Maps</a> — source-map matching rules, static provisioning, and which error categories resolve.</li>
+<li><a href="../trace-inspect">Trace Inspect</a> — the cross-layer sibling for traces.</li>
+<li><a href="../inspect">Metrics Inspect</a> — the cross-layer view of OAP&rsquo;s metric catalog.</li>
 </ul>
 
 </div>
@@ -1349,12 +1399,16 @@ navigable on the site.</li>
 <div class="td-toc-label">On this page</div>
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#claudemd--writing-the-horizon-ui-docs">CLAUDE.md — Writing the Horizon UI docs</a>
+    <li><a href="#log-inspect">Log Inspect</a>
       <ul>
-        <li><a href="#1-operator-perspective-first">1. Operator perspective first</a></li>
-        <li><a href="#2-config-is-edited-in-the-ui--lead-with-that-json-is-an-appendix">2. Config is edited in the UI — lead with that; JSON is an appendix</a></li>
-        <li><a href="#3-dont-hardcode-the-horizon-version">3. Don&rsquo;t hardcode the Horizon version</a></li>
-        <li><a href="#4-other-house-rules">4. Other house rules</a></li>
+        <li><a href="#sources">Sources</a></li>
+        <li><a href="#target--pick-it-type-it-or-leave-it-blank">Target — pick it, type it, or leave it blank</a></li>
+        <li><a href="#raw--stored-logs-across-layers">Raw — stored logs across layers</a></li>
+        <li><a href="#browser--js-errors-with-source-map-resolve">Browser — JS errors with source-map resolve</a></li>
+        <li><a href="#kubernetes-pod-logs--live-tails-without-entering-a-layer">Kubernetes Pod logs — live tails without entering a layer</a></li>
+        <li><a href="#resolved-query">Resolved query</a></li>
+        <li><a href="#permissions">Permissions</a></li>
+        <li><a href="#related">Related</a></li>
       </ul>
     </li>
   </ul>
@@ -1471,6 +1525,12 @@ navigable on the site.</li>
 
     </div>
     
+
+
+
+
+
+
 
 
 
