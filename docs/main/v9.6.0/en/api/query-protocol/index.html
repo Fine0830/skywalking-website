@@ -2514,9 +2514,9 @@ full log text fuzzy queries, while others do not due to considerations related t
 </span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#57606a"># query all task list, order by ProfileTask#startTime descending</span><span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>getProfileTaskList<span style="color:#1f2328">(</span>serviceId<span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">ID</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span>endpointName<span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">String</span><span style="color:#1f2328">):</span><span style="color:#fff"> </span><span style="color:#1f2328">[</span><span style="color:#1f2328">ProfileTask</span><span style="color:#1f2328">!]!</span><span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#57606a"># query all task logs</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>getProfileTaskLogs<span style="color:#1f2328">(</span>taskID<span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">String</span><span style="color:#1f2328">):</span><span style="color:#fff"> </span><span style="color:#1f2328">[</span><span style="color:#1f2328">ProfileTaskLog</span><span style="color:#1f2328">!]!</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>getProfileTaskLogs<span style="color:#1f2328">(</span>taskID<span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">String</span><span style="color:#1f2328">):</span><span style="color:#fff"> </span><span style="color:#1f2328">[</span>ProfileTaskLog<span style="color:#1f2328">!]!</span><span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#57606a"># query all task profiled segment list</span><span style="color:#fff">
-</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>getProfileTaskSegmentList<span style="color:#1f2328">(</span>taskID<span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">String</span><span style="color:#1f2328">):</span><span style="color:#fff"> </span><span style="color:#1f2328">[</span><span style="color:#1f2328">BasicTrace</span><span style="color:#1f2328">!]!</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">getProfileTaskSegmentList</span><span style="color:#1f2328">(</span>taskID<span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">String</span><span style="color:#1f2328">):</span><span style="color:#fff"> </span><span style="color:#1f2328">[</span><span style="color:#1f2328">BasicTrace</span><span style="color:#1f2328">!]!</span><span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#57606a"># query profiled segment</span><span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>getProfiledSegment<span style="color:#1f2328">(</span>segmentId<span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#1f2328">String</span><span style="color:#1f2328">):</span><span style="color:#fff"> </span><span style="color:#1f2328">ProfiledSegment</span><span style="color:#fff">
 </span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#57606a"># analyze profiled segment, start and end time use timestamp(millisecond)</span><span style="color:#fff">
@@ -2745,6 +2745,26 @@ Step relates to precision.</p>
 
     </div>
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
