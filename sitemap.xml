@@ -2492,7 +2492,7 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>/docs/skywalking-banyandb/next/design/archive/0.12.0/native-inverted-index/</loc>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/native-inverted-index/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -2777,7 +2777,7 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>/docs/skywalking-banyandb/next/design/archive/0.12.0/readme/</loc>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/readme/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -16849,6 +16849,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-java/v9.6.0/en/setup/service-agent/java-agent/configurations/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/tag-aggregation/readme/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
