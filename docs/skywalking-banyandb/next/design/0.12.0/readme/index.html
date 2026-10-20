@@ -25,17 +25,17 @@
 <title>0.12.0 Design Documents | Apache SkyWalking</title><meta property="og:url" content="/docs/skywalking-banyandb/next/design/0.12.0/readme/">
   <meta property="og:site_name" content="Apache SkyWalking">
   <meta property="og:title" content="0.12.0 Design Documents">
-  <meta property="og:description" content="0.12.0 Design Documents Tag aggregation and time bucketing in the measure query engine Self-stored logs Time-range pruning in the native inverted index The native inverted-index replacement design shipped and has moved to the archive ahead of the rest of this milestone.">
+  <meta property="og:description" content="0.12.0 Design Documents Tag aggregation and time bucketing in the measure query engine Self-stored logs Time-range pruning in the native inverted index Measure batch v2: reference-counted, columnar data unit Measure scan path v2: streaming series windows and a time-ordered merge Proto-free BydbQL measure planning with a reusable plan cache Measure QL: remaining gaps and order of work Aggregating measures and materialized views Streaming API: progressive queries and acknowledged write streams The native inverted-index replacement design shipped and has moved to the archive ahead of the rest of this milestone.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
 
   <meta itemprop="name" content="0.12.0 Design Documents">
-  <meta itemprop="description" content="0.12.0 Design Documents Tag aggregation and time bucketing in the measure query engine Self-stored logs Time-range pruning in the native inverted index The native inverted-index replacement design shipped and has moved to the archive ahead of the rest of this milestone.">
-  <meta itemprop="wordCount" content="41">
+  <meta itemprop="description" content="0.12.0 Design Documents Tag aggregation and time bucketing in the measure query engine Self-stored logs Time-range pruning in the native inverted index Measure batch v2: reference-counted, columnar data unit Measure scan path v2: streaming series windows and a time-ordered merge Proto-free BydbQL measure planning with a reusable plan cache Measure QL: remaining gaps and order of work Aggregating measures and materialized views Streaming API: progressive queries and acknowledged write streams The native inverted-index replacement design shipped and has moved to the archive ahead of the rest of this milestone.">
+  <meta itemprop="wordCount" content="89">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="0.12.0 Design Documents">
-  <meta name="twitter:description" content="0.12.0 Design Documents Tag aggregation and time bucketing in the measure query engine Self-stored logs Time-range pruning in the native inverted index The native inverted-index replacement design shipped and has moved to the archive ahead of the rest of this milestone.">
+  <meta name="twitter:description" content="0.12.0 Design Documents Tag aggregation and time bucketing in the measure query engine Self-stored logs Time-range pruning in the native inverted index Measure batch v2: reference-counted, columnar data unit Measure scan path v2: streaming series windows and a time-ordered merge Proto-free BydbQL measure planning with a reusable plan cache Measure QL: remaining gaps and order of work Aggregating measures and materialized views Streaming API: progressive queries and acknowledged write streams The native inverted-index replacement design shipped and has moved to the archive ahead of the rest of this milestone.">
 
 
 
@@ -1313,7 +1313,7 @@
   })()
 </script>
 
-                  <div class="commit-id">Commit Id: f2f351b</div>
+                  <div class="commit-id">Commit Id: f942404</div>
                 
 
 
@@ -1331,6 +1331,12 @@
 <li><a href="../tag-aggregation/readme">Tag aggregation and time bucketing in the measure query engine</a></li>
 <li><a href="../self-stored-logs/readme">Self-stored logs</a></li>
 <li><a href="../native-index-time-pruning/readme">Time-range pruning in the native inverted index</a></li>
+<li><a href="../measure-batch-v2/readme">Measure batch v2: reference-counted, columnar data unit</a></li>
+<li><a href="../measure-scan-path-v2/readme">Measure scan path v2: streaming series windows and a time-ordered merge</a></li>
+<li><a href="../bydbql-plan-cache/readme">Proto-free BydbQL measure planning with a reusable plan cache</a></li>
+<li><a href="../measure-ql-gaps/readme">Measure QL: remaining gaps and order of work</a></li>
+<li><a href="../measure-aggregation-mv/readme">Aggregating measures and materialized views</a></li>
+<li><a href="../streaming-api/readme">Streaming API: progressive queries and acknowledged write streams</a></li>
 </ul>
 <p>The <a href="../../archive/0.12.0/native-inverted-index/readme">native inverted-index replacement</a>
 design shipped and has moved to the archive ahead of the rest of this milestone.</p>
@@ -1474,6 +1480,18 @@ design shipped and has moved to the archive ahead of the rest of this milestone.
 
     </div>
     
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
