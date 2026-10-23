@@ -5683,6 +5683,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/pr2-verification/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-java/latest/en/setup/service-agent/java-agent/configuration-discovery/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -16884,6 +16888,14 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/t07-verification/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/t08-verification/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-java/latest/en/setup/service-agent/java-agent/configurations/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -17518,6 +17530,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/main/v9.7.0/en/setup/backend/trace-sampling/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/lifecycle-trace-sampling/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
