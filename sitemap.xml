@@ -2637,7 +2637,7 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>/docs/skywalking-horizon-ui/next/dashboards/otlp_service/</loc>
+    <loc>/docs/skywalking-horizon-ui/next/dashboards/otlp_general/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -6124,6 +6124,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/main/v9.7.0/en/setup/backend/log-agent-native/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/follow-up-verification/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -9891,6 +9895,14 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/indexed-patterns/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/indexed-patterns-verification/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-php/latest/en/configuration/ini-settings/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -12571,6 +12583,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/main/next/en/setup/backend/trace-analyzer-practices/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/main/latest/en/setup/backend/otlp-trace/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -13036,6 +13052,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-python/v1.2.0/en/contribution/how-to-test-plugin/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/review-fixes-verification/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
