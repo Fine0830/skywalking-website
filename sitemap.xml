@@ -5675,6 +5675,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/gateway-canary/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/implementation-tickets/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -7000,6 +7004,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/database-and-cache/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-ql-core-sql/datafusion-research/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -7602,15 +7610,15 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>/docs/skywalking-graalvm-distro/next/internals/dsl-immigration/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>/docs/skywalking-graalvm-distro/v0.2.1/internals/dsl-immigration/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-graalvm-distro/v0.3.0/internals/dsl-immigration/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-graalvm-distro/next/internals/dsl-immigration/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -8382,6 +8390,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/gateway-envoy/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/main/latest/en/setup/backend/backend-envoy-ai-gateway-monitoring/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -9008,6 +9020,14 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-banyandb/next/soak/g9f-runbook/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/gateway-overview/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/gateway-without-instrumentation/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -11279,6 +11299,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/message-queue/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/main/latest/en/setup/backend/mq/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -11959,6 +11983,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/gateway-nginx/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/main/latest/en/setup/backend/backend-nginx-monitoring/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -12580,10 +12608,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/main/next/en/setup/backend/trace-analyzer/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>/docs/main/next/en/setup/backend/trace-analyzer-practices/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -15121,6 +15145,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/main/v9.7.0/en/setup/service-agent/server-agents/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/main/next/en/setup/backend/server-clusters/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
