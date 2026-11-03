@@ -2869,7 +2869,15 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-horizon-ui/next/changelog/1.0.1/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-horizon-ui/next/changelog/1.1.0/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-horizon-ui/next/changelog/1.2.0/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -3022,6 +3030,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/main/next/en/changes/changes-11.0.0/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/main/next/en/changes/changes-11.1.0/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
