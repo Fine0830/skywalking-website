@@ -25,19 +25,19 @@
 <title>Supported Features | Apache SkyWalking</title><meta property="og:url" content="/docs/skywalking-graalvm-distro/next/supported-features/">
   <meta property="og:site_name" content="Apache SkyWalking">
   <meta property="og:title" content="Supported Features">
-  <meta property="og:description" content="Supported Features This distro packages the Apache SkyWalking OAP server as a GraalVM native image with a fixed module set. All modules and providers are selected at build time — there is no runtime SPI discovery or dynamic module loading.
+  <meta property="og:description" content="Supported Features This distro packages the Apache SkyWalking OAP server as a GraalVM native image with a built-in module set: the modules and providers are chosen at build time, and only those are in the image. As upstream, application.yml decides which of them run and picks each one’s provider.
 What’s Included Storage Provider Status BanyanDB Included (default) Elasticsearch Not included H2 / MySQL / PostgreSQL / OpenSearch Not included Cluster Provider Status Standalone Included (default) Kubernetes Included ZooKeeper / Consul / Etcd / Nacos Not included Configuration Provider Status none Included k8s-configmap Included (default) Apollo / Consul / Etcd / Nacos / ZooKeeper / gRPC Not included Data Receivers All receivers are included:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="docs">
 
   <meta itemprop="name" content="Supported Features">
-  <meta itemprop="description" content="Supported Features This distro packages the Apache SkyWalking OAP server as a GraalVM native image with a fixed module set. All modules and providers are selected at build time — there is no runtime SPI discovery or dynamic module loading.
+  <meta itemprop="description" content="Supported Features This distro packages the Apache SkyWalking OAP server as a GraalVM native image with a built-in module set: the modules and providers are chosen at build time, and only those are in the image. As upstream, application.yml decides which of them run and picks each one’s provider.
 What’s Included Storage Provider Status BanyanDB Included (default) Elasticsearch Not included H2 / MySQL / PostgreSQL / OpenSearch Not included Cluster Provider Status Standalone Included (default) Kubernetes Included ZooKeeper / Consul / Etcd / Nacos Not included Configuration Provider Status none Included k8s-configmap Included (default) Apollo / Consul / Etcd / Nacos / ZooKeeper / gRPC Not included Data Receivers All receivers are included:">
-  <meta itemprop="wordCount" content="1093">
+  <meta itemprop="wordCount" content="1115">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Supported Features">
-  <meta name="twitter:description" content="Supported Features This distro packages the Apache SkyWalking OAP server as a GraalVM native image with a fixed module set. All modules and providers are selected at build time — there is no runtime SPI discovery or dynamic module loading.
+  <meta name="twitter:description" content="Supported Features This distro packages the Apache SkyWalking OAP server as a GraalVM native image with a built-in module set: the modules and providers are chosen at build time, and only those are in the image. As upstream, application.yml decides which of them run and picks each one’s provider.
 What’s Included Storage Provider Status BanyanDB Included (default) Elasticsearch Not included H2 / MySQL / PostgreSQL / OpenSearch Not included Cluster Provider Status Standalone Included (default) Kubernetes Included ZooKeeper / Consul / Etcd / Nacos Not included Configuration Provider Status none Included k8s-configmap Included (default) Apollo / Consul / Etcd / Nacos / ZooKeeper / gRPC Not included Data Receivers All receivers are included:">
 
 
@@ -496,7 +496,7 @@ What’s Included Storage Provider Status BanyanDB Included (default) Elasticsea
   })()
 </script>
 
-                  <div class="commit-id">Commit Id: 78d5307</div>
+                  <div class="commit-id">Commit Id: f78c20f</div>
                 
 
 
@@ -549,8 +549,8 @@ What’s Included Storage Provider Status BanyanDB Included (default) Elasticsea
 <div class="td-content">
 	<h1 id="supported-features">Supported Features</h1>
 <p>This distro packages the Apache SkyWalking OAP server as a GraalVM native image with a
-<strong>fixed module set</strong>. All modules and providers are selected at build time — there is no
-runtime SPI discovery or dynamic module loading.</p>
+<strong>built-in module set</strong>: the modules and providers are chosen at build time, and only those are in the
+image. As upstream, <code>application.yml</code> decides which of them run and picks each one&rsquo;s provider.</p>
 <h2 id="whats-included">What&rsquo;s Included</h2>
 <h3 id="storage">Storage</h3>
 <table>
@@ -839,7 +839,7 @@ runtime SPI discovery or dynamic module loading.</p>
       </tr>
       <tr>
           <td>Telemetry</td>
-          <td>Prometheus (self-monitoring metrics on port 1234)</td>
+          <td>Prometheus (self-monitoring metrics on port 1234), or none</td>
       </tr>
       <tr>
           <td>Exporter</td>
@@ -1019,8 +1019,8 @@ distribution if you need hot-update.</p>
       </tr>
       <tr>
           <td>Module loading</td>
-          <td>SPI discovery at runtime</td>
-          <td>Fixed at build time</td>
+          <td>SPI discovery of the providers on the classpath, selected by <code>application.yml</code></td>
+          <td>Same, over the providers built into the image</td>
       </tr>
       <tr>
           <td>DSL rules</td>
