@@ -6503,15 +6503,15 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>/docs/skywalking-graalvm-distro/next/internals/config-init-immigration/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>/docs/skywalking-graalvm-distro/v0.2.1/internals/config-init-immigration/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-graalvm-distro/v0.3.0/internals/config-init-immigration/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-graalvm-distro/next/internals/config-init-immigration/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
