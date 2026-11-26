@@ -2753,6 +2753,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-horizon-ui/next/operate/otlp-pairing/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-horizon-ui/next/operate/profiling/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -2802,6 +2806,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-banyandb/next/design/0.12.0/readme/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.13.0/readme/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -6684,6 +6692,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/stream-measure-block-copy/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/main/latest/en/swip/swip-1/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -7613,6 +7625,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-banyandb/next/design/0.12.0/docker-canonical-build/readme/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.13.0/document-index/readme/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -11323,6 +11339,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/showcase-merge-replay/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/main/next/en/setup/backend/otlp-trace-practices/message-queue/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -14695,6 +14715,10 @@
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/measure-merge-buffer-reuse/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>/docs/skywalking-banyandb/next/interacting/schema-consistency/revision-gates/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -16533,6 +16557,10 @@
     <priority>0.5</priority>
   </url><url>
     <loc>/docs/skywalking-swck/v0.10.0/examples/storage/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>/docs/skywalking-banyandb/next/design/0.12.0/stream-measure-block-copy-samples/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url><url>
